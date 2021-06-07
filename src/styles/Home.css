@@ -1,0 +1,33 @@
+.home {
+  max-width: 1100px;
+  margin: auto;
+}
+.home_button_container {
+  display: flex;
+  margin-bottom: 3vh;
+  padding-left: 2px;
+  gap: 3vh;
+}
+
+.media_button {
+  padding: 1vh 3vh;
+  font-size: 20px;
+  background-color: transparent;
+  font-weight: 700;
+  border-radius: 4px;
+  border: none;
+  transition: 0.3s ease;
+  color: #0cd4c7;
+}
+
+.media_button:hover {
+  cursor: pointer;
+  background-color: #0cd4c7;
+  color: #f0f0f0;
+}
+
+.media_button_active {
+  background-color: #0cd4c7;
+  color: #f0f0f0;
+  transform: scale(1.01);
+}

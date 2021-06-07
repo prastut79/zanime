@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import Header from "./components/Header"
+import { BrowserRouter as Router, Redirect, Switch, Route } from "react-router-dom"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { pagePath } from "./data/config"
+import Home from "./components/Home"
+import TrendingAnime from "./components/TrendingAnime"
+import MediaInfo from "./components/MediaInfo"
+
+const App = () => {
+
+    return (
+        <div id="App">
+            <Router>
+                <Header />
+                <div className="content_container">
+                    <Switch>
+                        <Route exact path="/">
+                            <Redirect to={pagePath.home} />
+                        </Route>
+                        <Route exact path={pagePath.home}>
+                            <Home />
+                        </Route>
+                        <Route exact path={pagePath.animeTrending}>
+                            <TrendingAnime />
+                        </Route>
+                        <Route exact path="/anime/:id">
+                            <MediaInfo />
+                        </Route>
+                        <Route>
+                            <Redirect to="/404" />
+                            <h1>Page Not Found</h1>
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+        </div >
+    )
 }
 
-export default App;
+export default App
