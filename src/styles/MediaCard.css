@@ -57,10 +57,7 @@
 
 @media (max-width: 600px) {
   .media__coverImage {
-    height: 250px;
-  }
-  .coverImage_container {
-    height: auto;
+    height: 190px;
   }
 }
 

@@ -1,0 +1,11 @@
+.mediaRelations {
+  padding-bottom: 5vh;
+}
+
+.relationCard_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 95px);
+  grid-gap: 30px 20px;
+  justify-content: space-between;
+  align-content: space-between;
+}

@@ -1,0 +1,9 @@
+.mediaCharacters {
+  margin-bottom: 5vh;
+}
+
+.characterCard_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minMax(250px, 1fr));
+  grid-gap: 30px 20px;
+}

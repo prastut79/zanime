@@ -2,7 +2,8 @@
   display: grid;
   grid-gap: 40px 20px;
   grid-template-columns: repeat(auto-fill, 185px);
-  justify-content: space-between; /* horizontal alignment of grid tracks */
+  justify-content: space-between;
+  /* align-content: space-between; */
   /* border: 2px dotted blue; */
   /*
     grid-template-rows: auto;
@@ -27,14 +28,13 @@
 
 @media (max-width: 870px) {
   .mediaCard_container {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, 150px);
   }
 }
 
 @media (max-width: 600px) {
   .mediaCard_container {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    grid-gap: 20px auto;
-    /* margin: auto 20px; */
+    grid-template-columns: repeat(auto-fill, 140px);
+    grid-gap: 20px;
   }
 }

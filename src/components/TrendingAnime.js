@@ -4,7 +4,7 @@ import MediaContainer from "./MediaContainer"
 import { colorList } from "./../data/config"
 import LoadingAnimation from "./LoadingAnimation"
 import { unstable_batchedUpdates } from "react-dom"
-
+import "./../styles/MediaList.css"
 const TrendingAnime = () => {
 
     const [medias, setMedias] = useState([])
@@ -34,12 +34,16 @@ const TrendingAnime = () => {
     }
 
     return (
-        <div style={{ maxWidth: "1100px", margin: "auto" }}>
+        <div className="mediaList">
             <h1 style={{ marginBottom: "7vh", color: colorList.cyan }}>Trending Now</h1>
             <MediaContainer medias={medias} />
             {loading && <LoadingAnimation />}
-            <button onClick={handleOnClick} >Load More</button>
-            {!hasMore && <h1>No More Results</h1>}
+            {hasMore
+                ?
+                <button onClick={handleOnClick} >Load More</button>
+                :
+                <h1>No More Results</h1>
+            }
         </div>
     )
 }

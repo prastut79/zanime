@@ -1,99 +1,115 @@
 const URL = 'https://graphql.anilist.co'
 
-async function getAnimeById(id) {
+async function getMediaById(id, mediaType) {
     const query = `
-    query ($id: Int!) {
-        Media(id: $id, type: ANIME) {
-            id
-            idMal
-            title {
-                romaji
-                english
-                native
-            }
-            type
-            format
-            status
-            description
-            startDate {
-                year
-                month
-                day
-            }
-            endDate {
-                year
-                month
-                day
-            }
-            season
-            seasonYear
-            seasonInt
-            episodes
-            duration
-            chapters
-            volumes
-            countryOfOrigin
-            isLicensed
-            source
-            hashtag
-            trailer {
+        query($id: Int!) {
+            Media(id: $id, type: ${mediaType}) {
                 id
-                site
-                thumbnail
-            }
-            coverImage {
-                extraLarge
-                large
-                medium
-                color
-            }
-            bannerImage
-            genres
-            synonyms
-            averageScore
-            meanScore
-            popularity
-            isLocked
-            trending
-            favourites
-            rankings {
-                rank
+                idMal
+                title {
+                    romaji
+                    english
+                    native
+                }
                 type
-                allTime
-                context
-            }
-            characters(sort: ROLE) {
-                edges {
+                format
+                status
+                description
+                startDate {
+                    year
+                    month
+                    day
+                }
+                endDate {
+                    year
+                    month
+                    day
+                }
+                season
+                seasonYear
+                seasonInt
+                episodes
+                duration
+                chapters
+                volumes
+                countryOfOrigin
+                isLicensed
+                source
+                hashtag
+                trailer {
                     id
-                    node {
+                    site
+                    thumbnail
+                }
+                coverImage {
+                    extraLarge
+                    large
+                    medium
+                    color
+                }
+                bannerImage
+                genres
+                synonyms
+                averageScore
+                meanScore
+                popularity
+                isLocked
+                trending
+                favourites
+                rankings {
+                    rank
+                    type
+                    allTime
+                    context
+                }
+                characters(sort: ROLE) {
+                    edges {
                         id
-                        siteUrl
-                        name {
-                            first
-                            last
-                            full
-                            native
+                        node {
+                            id
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                        role
+                    }
+                }
+                studios(isMain: true) {
+                    nodes {
+                        name
+                    }
+                }
+                relations {
+                    edges {
+                        id
+                        relationType(version: 2)
+                        node {
+                            id
+                            title {
+                                romaji
+                                english
+                                userPreferred
+                            }
+                            coverImage {
+                                large
+                                color
+                            }
+                            status
+                            format
+                            type
                         }
                     }
-                    role
                 }
-            }
-            studios(isMain: true) {
-                nodes {
-                    name
-                    siteUrl	
+                nextAiringEpisode {
+                    airingAt
+                    episode
                 }
+                siteUrl
             }
-            isAdult
-            nextAiringEpisode {
-                id
-                airingAt
-                timeUntilAiring
-                episode
-            }
-            siteUrl
-        }
-    }`
+        } `
 
     const response = await fetch(URL, getOptions(getVariableId(id), query))
     // const data = await response.json()
@@ -103,8 +119,8 @@ async function getAnimeById(id) {
 
 async function getTrending(mediaType, page, perPage) {
     const query = `
-        query ($page: Int, $perPage: Int){
-            Page (page: $page, perPage: $perPage){
+        query($page: Int, $perPage: Int){
+            Page(page: $page, perPage: $perPage){
                 pageInfo {
                     total
                     currentPage
@@ -112,7 +128,7 @@ async function getTrending(mediaType, page, perPage) {
                     hasNextPage
                     perPage
                 }
-                media(type: ${mediaType.toUpperCase()}, sort: TRENDING_DESC, genre_not_in:"HENTAI") {
+                media(type: ${mediaType.toUpperCase()}, sort: TRENDING_DESC, genre_not_in: "HENTAI") {
                     id
                     averageScore
                     type
@@ -127,10 +143,10 @@ async function getTrending(mediaType, page, perPage) {
                         extraLarge
                         color
                     }
-            
+
                 }
             }
-        }`
+} `
 
     const response = await fetch(URL, getOptions(getVariablePage(page, perPage), query))
     const data = await response.json()
@@ -141,8 +157,8 @@ async function getTrending(mediaType, page, perPage) {
 
 async function getPopularNow(mediaType, page, perPage) {
     const query = `
-        query ($page: Int, $perPage: Int){
-            Page (page: $page, perPage: $perPage){
+        query($page: Int, $perPage: Int){
+            Page(page: $page, perPage: $perPage){
                 pageInfo {
                     total
                     currentPage
@@ -150,7 +166,7 @@ async function getPopularNow(mediaType, page, perPage) {
                     hasNextPage
                     perPage
                 }
-                media(type: ${mediaType.toUpperCase()}, sort: POPULARITY_DESC ${mediaType.toLowerCase() === "anime" ? ", status: RELEASING" : ""}, genre_not_in:"HENTAI" ) {
+                media(type: ${mediaType.toUpperCase()}, sort: POPULARITY_DESC ${mediaType.toLowerCase() === "anime" ? ", status: RELEASING" : ""}, genre_not_in: "HENTAI") {
                     id
                     averageScore
                     meanScore
@@ -167,7 +183,7 @@ async function getPopularNow(mediaType, page, perPage) {
                     }
                 }
             }
-        }`
+} `
 
     const response = await fetch(URL, getOptions(getVariablePage(page, perPage), query))
     const data = await response.json()
@@ -176,33 +192,33 @@ async function getPopularNow(mediaType, page, perPage) {
 }
 async function getUpcomingSeason(mediaType, page, perPage) {
     const query = `
-        query ($page: Int, $perPage: Int){
-            Page (page: $page, perPage: $perPage){
-                pageInfo {
-                    total
-                    currentPage
-                    lastPage
-                    hasNextPage
-                    perPage
-                }
-                media(type: ${mediaType.toUpperCase()}, sort: POPULARITY_DESC , status: NOT_YET_RELEASED, season: ${getSeason()}, genre_not_in:"HENTAI") {
-                    id
-                    averageScore
-                    type
-                    meanScore
-                    title {
-                        romaji
-                        english
-                        userPreferred
-                        native
-                    }
-                    coverImage {
-                        extraLarge
-                        color
-                    }
-                }
+query($page: Int, $perPage: Int){
+    Page(page: $page, perPage: $perPage){
+        pageInfo {
+            total
+            currentPage
+            lastPage
+            hasNextPage
+            perPage
+        }
+        media(type: ${mediaType.toUpperCase()}, sort: POPULARITY_DESC, status: NOT_YET_RELEASED, season: ${getSeason()}, genre_not_in: "HENTAI") {
+            id
+            averageScore
+            type
+            meanScore
+            title {
+                romaji
+                english
+                userPreferred
+                native
             }
-        }`
+            coverImage {
+                extraLarge
+                color
+            }
+        }
+    }
+} `
 
     const response = await fetch(URL, getOptions(getVariablePage(page, perPage), query))
     const data = await response.json()
@@ -212,33 +228,33 @@ async function getUpcomingSeason(mediaType, page, perPage) {
 async function getPopularManhwa(mediaType, page, perPage) {
     console.log("MANWa api call")
     const query = `
-        query ($page: Int, $perPage: Int){
-            Page (page: $page, perPage: $perPage){
-                pageInfo {
-                    total
-                    currentPage
-                    lastPage
-                    hasNextPage
-                    perPage
-                }
-                media(type: ${mediaType.toUpperCase()}, sort: POPULARITY_DESC , countryOfOrigin: KR) {
-                    id
-                    averageScore
-                    meanScore
-                    type
-                    title {
-                        romaji
-                        english
-                        userPreferred
-                        native
-                    }
-                    coverImage {
-                        extraLarge
-                        color
-                    }
-                }
+query($page: Int, $perPage: Int){
+    Page(page: $page, perPage: $perPage){
+        pageInfo {
+            total
+            currentPage
+            lastPage
+            hasNextPage
+            perPage
+        }
+        media(type: ${mediaType.toUpperCase()}, sort: POPULARITY_DESC, countryOfOrigin: KR) {
+            id
+            averageScore
+            meanScore
+            type
+            title {
+                romaji
+                english
+                userPreferred
+                native
             }
-        }`
+            coverImage {
+                extraLarge
+                color
+            }
+        }
+    }
+} `
 
     const response = await fetch(URL, getOptions(getVariablePage(page, perPage), query))
     const data = await response.json()
@@ -288,4 +304,4 @@ function getSeason() {
         return "FALL"
     }
 }
-export { getAnimeById, getTrending, getPopularNow, getUpcomingSeason, getPopularManhwa }
+export { getMediaById, getTrending, getPopularNow, getUpcomingSeason, getPopularManhwa }

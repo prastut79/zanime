@@ -24,7 +24,7 @@ const App = () => {
                         <Route exact path={pagePath.animeTrending}>
                             <TrendingAnime />
                         </Route>
-                        <Route exact path="/anime/:id">
+                        <Route exact path="/:mediaType/:id">
                             <MediaInfo />
                         </Route>
                         <Route>

@@ -4,7 +4,8 @@
 }
 .home_button_container {
   display: flex;
-  margin-bottom: 3vh;
+  margin: 5vh 0;
+
   padding-left: 2px;
   gap: 3vh;
 }
