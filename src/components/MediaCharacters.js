@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import MediaCharacterCard from "./MediaCharacterCard"
 import "./../styles/MediaCharacters.css"
+
 const MediaCharacters = ({ characters, color }) => {
-    const [showAll, setShowAll] = useState()
+
+    const [showAll, setShowAll] = useState(false)
 
     useEffect(() => {
         setShowAll(false);
-
         (characters.edges.length
             <=
             characters.edges.filter(character => character.role === "MAIN").length
@@ -18,6 +19,7 @@ const MediaCharacters = ({ characters, color }) => {
     function toggleShowAll() {
         setShowAll(true)
     }
+
     console.log("Characterssssss")
 
     return (
@@ -33,12 +35,14 @@ const MediaCharacters = ({ characters, color }) => {
             </div>
             {
                 !showAll &&
-                <p
-                    onClick={toggleShowAll}
-                    className="show_more"
-                    style={{ color: color }}
-                >Show All
-                </p>
+                <b>
+                    <p
+                        onClick={toggleShowAll}
+                        className="show_more"
+                        style={{ color: color }}
+                    >Show All
+                     </p>
+                </b>
             }
         </div>
     )

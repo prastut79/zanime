@@ -61,13 +61,13 @@ const MediaInfo = () => {
             (media.duration && ["Duration", `${media.duration} mins`]),
             (media.startDate.year && ["Start Date", `${media.startDate.year}-${media.startDate.month || '?'}-${media.startDate.day || '?'}`]),
             (media.endDate.year && ["End Date", `${media.endDate.year}-${media.endDate.month || '?'}-${media.endDate.day || '?'}`]),
-            (media.season && ["Season", `${media.season}${media.startDate.year && " " + media.startDate.year}`]),
+            (media.season && ["Season", `${media.season} ${media.seasonYear && media.seasonYear}`]),
             ((media.averageScore || media.meanScore) && ["Score", media.averageScore || media.meanScore]),
             (media.popularity && ["Popularity", media.popularity]),
             (media.favourites && ["Favourites", media.favourites]),
             (media.studios.nodes.length > 0 && ["Main Studio", media.studios.nodes[0].name || "-"]),
             (media.source && ["Source", media.source]),
-            (media.title.native && ["Native", media.title.native]),
+            (media.title.native && ["Japanese", media.title.native]),
             (media.synonyms && ["Synonyms", <span dangerouslySetInnerHTML={{ __html: media.synonyms.join(",<br />") || title }} />])
         ]
     }
@@ -96,7 +96,7 @@ const MediaInfo = () => {
                                     target="_blank" rel="noreferrer"
                                 >{title}</a>
 
-                                <ParagraphCrop text={media.description} className="description" />
+                                {media.description && <ParagraphCrop text={media.description} className="description" />}
 
                                 <div className="genre_container">
                                     {media.genres.map((genre, i) => (
@@ -112,7 +112,7 @@ const MediaInfo = () => {
                             <div className="sidebar_content">
                                 <h3 className="block_header">Summary</h3>
                                 <div className="sidebar_data_container">
-                                    {airingTime && <BodySummary title="Airing" value={airingTime} valueStyle={{ color: colorList.cyan, opacity: "0.8" }} />}
+                                    {airingTime && <BodySummary title="Airing" value={airingTime} valueStyle={{ color: color, opacity: "1" }} />}
                                     {summary.map((media, i) => (
                                         media && <BodySummary title={media[0]} value={media[1]} key={i} />
                                     ))}

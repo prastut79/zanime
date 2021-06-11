@@ -6,7 +6,7 @@
 
 .mediaCard:hover {
   cursor: pointer;
-  transform: scale(1.005);
+  transform: scale(1.02);
   opacity: 0.5;
 }
 

@@ -2,16 +2,17 @@ import MediaRelationCard from "./MediaRelationCard"
 import "./../styles/MediaRelations.css"
 import { useEffect, useState } from "react"
 
+const mainRelation = ['PREQUEL', 'SEQUEL', 'SOURCE', 'ADAPTATION', 'PARENT']
+
 const MediaRelations = ({ relations, color }) => {
 
-    const [showAll, setShowAll] = useState()
+    const [showAll, setShowAll] = useState(false)
 
     useEffect(() => {
         setShowAll(false);
-
         (relations.edges.length
             <=
-            relations.edges.filter(relation => ['PREQUEL', 'SEQUEL', 'SOURCE', 'ADAPTATION'].includes(relation.relationType)).length
+            relations.edges.filter(relation => mainRelation.includes(relation.relationType)).length
         )
             &&
             setShowAll(true)
@@ -28,18 +29,18 @@ const MediaRelations = ({ relations, color }) => {
             <div className="relationCard_container">
                 {relations.edges.map((relation) => (
                     (showAll ? true :
-                        ['PREQUEL', 'SEQUEL', 'SOURCE', 'ADAPTATION'].includes(relation.relationType))
+                        mainRelation.includes(relation.relationType))
                     &&
                     < MediaRelationCard relation={relation} key={relation.id} />
                 ))}
             </div>
-            {!showAll &&
+            {!showAll && <b>
                 <p
                     onClick={toggleShowAll}
                     className="show_more"
                     style={{ color: color }}
                 >Show All
-                </p>
+                </p></b>
             }
         </div>
     )

@@ -5,7 +5,6 @@ async function getMediaById(id, mediaType) {
         query($id: Int!) {
             Media(id: $id, type: ${mediaType}) {
                 id
-                idMal
                 title {
                     romaji
                     english
@@ -27,15 +26,11 @@ async function getMediaById(id, mediaType) {
                 }
                 season
                 seasonYear
-                seasonInt
                 episodes
                 duration
                 chapters
                 volumes
-                countryOfOrigin
-                isLicensed
                 source
-                hashtag
                 trailer {
                     id
                     site
@@ -53,15 +48,7 @@ async function getMediaById(id, mediaType) {
                 averageScore
                 meanScore
                 popularity
-                isLocked
-                trending
                 favourites
-                rankings {
-                    rank
-                    type
-                    allTime
-                    context
-                }
                 characters(sort: ROLE) {
                     edges {
                         id

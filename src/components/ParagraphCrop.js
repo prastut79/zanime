@@ -1,14 +1,21 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { colorList } from "../data/config"
 
 const ParagraphCrop = ({ text, maxCharacter = 500, style, className }) => {
 
-    const [showAll, setshowAll] = useState(text.length <= maxCharacter)
+    const [showAll, setShowAll] = useState()
 
+    useEffect(() => {
+        console.log("USEEFF")
+        setShowAll(false);
+        text.length <= maxCharacter && setShowAll(true)
+
+    }, [text, maxCharacter])
 
     function toggleReadMore() {
-        setshowAll(true)
+        setShowAll(true)
     }
+
     console.log("ParaCrop")
     return (
         <>
@@ -16,7 +23,7 @@ const ParagraphCrop = ({ text, maxCharacter = 500, style, className }) => {
                 className={className}
                 style={style}
                 dangerouslySetInnerHTML={{ __html: showAll ? text : text.slice(0, maxCharacter) + "..." }}
-            />
+            />{console.log("afterUSEEFF")}
             {!showAll &&
                 <p onClick={toggleReadMore} className={className}
                     style={{

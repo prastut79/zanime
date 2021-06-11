@@ -15,7 +15,7 @@ const TrendingAnime = () => {
     useEffect(() => {
 
         (async () => {
-            const request = await getUpcomingSeason("anime", page, 30)
+            const request = await getTrending("anime", page, 30)
             unstable_batchedUpdates(() => {
                 setMedias(medias => {
                     return ([...medias, ...request.data.Page.media].filter((value, index, array) => array.findIndex(arr => (arr.id === value.id)) === index))

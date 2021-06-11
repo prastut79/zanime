@@ -92,7 +92,7 @@ const Home = () => {
             </div>
 
 
-            { loading
+            {loading
                 ?
                 <LoadingAnimation />
                 :
