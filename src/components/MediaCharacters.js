@@ -26,6 +26,7 @@ const MediaCharacters = ({ characters, color }) => {
         <div className="mediaCharacters">
             <h3 className="block_header">Characters</h3>
             <div className="characterCard_container" >
+
                 {characters.edges.map((character) => (
                     (showAll ? true : character.role === "MAIN") &&
                     <MediaCharacterCard character={character} color={color} key={character.id} />
@@ -41,7 +42,7 @@ const MediaCharacters = ({ characters, color }) => {
                         className="show_more"
                         style={{ color: color }}
                     >Show All
-                     </p>
+                    </p>
                 </b>
             }
         </div>

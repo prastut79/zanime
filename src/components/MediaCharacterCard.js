@@ -6,7 +6,7 @@ const MediaCharacterCard = ({ character, color }) => {
     return (
 
         <Link to="#" className="character_link">
-            <div className="mediaCharacterCard" style={{ borderRight: `4px solid ${color}` }}>
+            <div className="mediaCharacterCard" style={{ borderRight: `5px solid ${color}` }}>
                 <img src={character.node.image.medium} alt="" className="character_image" />
                 <div className="character_container" >
                     <div>
