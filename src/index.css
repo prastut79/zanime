@@ -48,6 +48,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #191919;
   letter-spacing: 0.55px;
+  overflow: overlay;
 }
 
 code {

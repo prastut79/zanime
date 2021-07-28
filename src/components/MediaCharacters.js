@@ -4,12 +4,12 @@ import "./../styles/MediaCharacters.css"
 
 const MediaCharacters = ({ characters, color }) => {
 
-    const [showAll, setShowAll] = useState(false)
+    const [showAll, setShowAll] = useState()
 
     useEffect(() => {
         setShowAll(false);
         (characters.edges.length
-            <=
+            ===
             characters.edges.filter(character => character.role === "MAIN").length
         )
             &&

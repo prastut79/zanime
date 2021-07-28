@@ -54,7 +54,7 @@ const MediaInfo = () => {
         }
 
         summary = [
-            ["Format", media.format || '-'],
+            (media.format && ["Format", media.format]),
             (media.episodes && ["Episodes", media.episodes]),
             (media.volumes && ["Volumes", media.volumes]),
             (media.chapters && ["Chapters", media.chapters]),
@@ -63,8 +63,8 @@ const MediaInfo = () => {
             (media.endDate.year && ["End Date", `${media.endDate.year}-${media.endDate.month || '?'}-${media.endDate.day || '?'}`]),
             (media.season && ["Season", `${media.season} ${media.seasonYear && media.seasonYear}`]),
             ((media.averageScore || media.meanScore) && ["Score", media.averageScore || media.meanScore]),
-            (media.popularity && ["Popularity", media.popularity]),
-            (media.favourites && ["Favourites", media.favourites]),
+            (media.popularity > 0 && ["Popularity", media.popularity]),
+            (media.favourites > 0 && ["Favourites", media.favourites]),
             (media.studios.nodes.length > 0 && ["Main Studio", media.studios.nodes[0].name || "-"]),
             (media.source && ["Source", media.source]),
             (media.title.native && ["Japanese", media.title.native]),
@@ -75,7 +75,7 @@ const MediaInfo = () => {
 
     return (
         <>
-            { loading ? <LoadingAnimation /> :
+            {loading ? <LoadingAnimation /> :
                 <>
                     <div className="banner" style={media.bannerImage ?
                         { backgroundImage: `url(${media.bannerImage}`, backgroundRepeat: 'no-repeat', backgroundSize: "cover", backgroundPosition: "center" }

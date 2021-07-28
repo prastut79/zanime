@@ -40,7 +40,7 @@ const Header = () => {
                 </NavLink>
             </div>
             <script>
-                {}
+                { }
             </script>
         </div>
     );
